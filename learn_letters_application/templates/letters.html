@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="grid-container">
+    <div class="grid-header">
+      <a href="/" class="">Return to Main Menu</a>
+    </div>
+
+    <h1 class="grid-title">Learn to Draw Your Letters</h1>
+
+    <div class="grid-drawing">
+        {% if parameters.guessed_count <= 1 %}
+            <div class="prompt" id="prompt">
+                <p>Write a(n) <span class="prompt-letter">{{ parameters.new_letter }}</span></p>
+            </div>
+        {% else %}
+              <div class="prompt" id="prompt">
+                <p>Write a(n) <span class="prompt-letter">{{ parameters.prev_letter }}</span></p>
+            </div>
+        {% endif %}
+
+        <div id="drawing">
+            <canvas id="canvas" width="200px" height="200px"></canvas>
+        </div>
+
+        <form id="letters-form" action="letters" method="POST">
+            <input id="letter" name="letter" type="hidden" value="{{ parameters.new_letter }}">
+            <input id="image" name="image" type="hidden" />
+
+            <button type="button" class="button button-small" onclick="lettersAction()">Check</button>
+            <button type="button" class="button button-small" onclick="resetCanvas()">Clear</button>
+        </form>
+    </div>
+
+    <div class="grid-response" id="grid-response">
+        {% if parameters.predicted_letter %}
+            {% if parameters.prev_letter == parameters.predicted_letter %}
+                <p class="response">Correct!</p>
+                <p>You were supposed to write: <span class="prev-letter correct">{{ parameters.prev_letter }}</span></p>
+                <p>I Guessed: <span class="guess-letter correct">{{ parameters.predicted_letter }}</span></p>
+            {% elif parameters.guessed_count == 0 %}
+                <p class="response">Sorry, Let's try another letter</p>
+            {% else %}
+                <p class="response">Maybe I was mistaken. Try again!</p>
+                <p>You were supposed to write: <span class="prev-letter incorrect">{{ parameters.prev_letter }}</span></p>
+                <p>I thought you wrote: <span class="guess-letter incorrect">{{ parameters.predicted_letter }}</span></p>
+            {% endif %}
+        {% endif %}
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      startCanvas()
+    })
+  </script>
+
+{% endblock %}

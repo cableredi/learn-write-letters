@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="grid-container">
+    <div class="grid-header">
+      <a href="/" class="">Return to Main Menu</a>
+    </div>
+
+    <div class="grid-title">
+      <h1>Train the Model</h1>
+    
+      <div>
+        <p>
+          You are prompted to write a letter - either uppercase or lowercase.
+        </p>
+        <p>
+          Try to draw all the letters in the alphabet to help balance the letter count.
+        </p>
+        <p>
+          When you are done, click the Retrain Model button.  This will retrain the model with your new letters.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-drawing">
+      <div class="prompt">
+        <p class="response-prev">Write a(n) <span class="prev-letter">{{ prompt_value }}</span></p>
+      </div>
+
+      <div id="drawing">
+        <canvas id="canvas" width="200px" height="200px"></canvas>
+      </div>
+
+      <form id="train-form" action="train" method="POST">
+        <input id="image" name="image" type="hidden" />
+        <input id="letter" name="letter" type="hidden" value="{{ prompt_value }}" />
+
+        <button type="button" class="button button-small" onclick="trainAction()">Add Letter</button>
+        <button type="button" class="button button-small" onclick="resetCanvas()">Clear</button>
+      </form>
+
+      <form id="model-form" action="train-model" method="POST">
+        <input type="submit" class="button button-retrain" name="model_submit" value="Retrain Model" />
+      </form>
+    </div>
+
+    <div class="grid-response" id="grid-response">
+      {% if message %}
+          <p class="response"><span class="prev-letter">{{ message }}</span></p>
+      {% endif %}
+    </div>
+    
+  </div>
+  
+  <script>
+    $(document).ready(function() {
+      startCanvas()
+    })
+  </script>
+
+{% endblock %}

@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    color: #210124;
+    background-color: #f8f8dd;
+}
+
+.title {
+    font-size: 2em;
+    margin-right: 50px;
+}
+
+a {
+    color: #210124;
+    text-decoration: none;
+    display: block;
+}
+
+.main-container {
+    margin: 50px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+    margin: 20px;
+    background-color: #F5DEB3;
+    border: 1px solid #210124;
+    border-radius: 5px;
+}
+
+.button {
+    background-color: #4685b4;
+    color: #f8f8dd;
+    border: 1px solid #210124;
+    border-radius: 5px;
+}
+
+.button-large {
+    padding: 5px 10px;
+    margin-bottom: 50px;
+
+    font-size: 1.8em;
+}
+
+.button-small {
+    padding: 5px 10px;
+    margin-top: 20px;
+
+    font-size: 0.9em;
+}
+
+.button-retrain {
+    padding: 5px 10px;
+    margin-top: 20px;
+
+    font-size: 0.9em;
+    background-color: #e54854;
+}
+
+#canvas {
+    background: no-repeat url('images/paper.png') white;
+}
+
+.grid-header {
+    grid-area: header;
+    justify-self: center;
+    align-items: center;
+
+    background-color: #F5DEB3;
+    padding: 10px 0;
+    border-top: 1px solid #210124;
+    border-bottom: 1px solid #210124;
+
+    width: 100%;
+}
+
+.grid-header a {
+    text-align: center;
+}
+
+.grid-title {
+    grid-area: title;
+    justify-self: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /*padding-bottom: 10px;*/
+    border-bottom: 4px solid #210124;
+}
+
+.grid-title div {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.grid-title div p {
+    margin: 10px;
+}
+
+.grid-drawing {
+    grid-area: drawing;
+    justify-self: end;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-response {
+    grid-area: response;
+    justify-self: start;
+    font-size: 1.1em;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 25% 25% 50%;
+    grid-template-areas: 
+        "header header"
+        "title title"
+        "drawing response";
+    column-gap: 30px;
+    row-gap: 30px;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.prompt {
+    font-size: 1.5em;
+    color: #210124;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.prompt-letter {
+    font-family: 'Andika', sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.prev-letter {
+    font-family: 'Andika', sans-serif;
+    font-weight: 700;
+}
+
+.guess-letter {
+    font-family: 'Andika', sans-serif;
+    font-weight: 700;
+}
+
+.correct {
+    color: #4685b4;
+}
+
+.incorrect {
+    color: #e54854;
+}
+
+.response {
+    border-bottom: 1px solid #210124;
+    padding-bottom: 10px;
+}
