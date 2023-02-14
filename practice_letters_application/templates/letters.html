@@ -6,7 +6,7 @@
       <a href="/" class="">Return to Main Menu</a>
     </div>
 
-    <h1 class="grid-title">Learn to Draw Your Letters</h1>
+    <h1 class="grid-title">Practice Writing Your Letters</h1>
 
     <div class="grid-drawing">
         {% if parameters.guessed_count <= 1 %}
@@ -37,7 +37,7 @@
             {% if parameters.prev_letter == parameters.predicted_letter %}
                 <p class="response">Correct!</p>
                 <p>You were supposed to write: <span class="prev-letter correct">{{ parameters.prev_letter }}</span></p>
-                <p>I Guessed: <span class="guess-letter correct">{{ parameters.predicted_letter }}</span></p>
+                <p>I thought you wrote: <span class="guess-letter correct">{{ parameters.predicted_letter }}</span></p>
             {% elif parameters.guessed_count == 0 %}
                 <p class="response">Sorry, Let's try another letter</p>
             {% else %}
