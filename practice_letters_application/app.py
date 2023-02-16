@@ -23,14 +23,11 @@ ENCODER = bidict({
     'w': 49, 'x': 50, 'y': 51, 'z': 52
 })
 
-ENCODER_LOWER = bidict({
-    
-})
-
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'
 
 model = keras.models.load_model('model/letters_model.h5')
+
 
 def getNewLetter():
     '''
@@ -45,6 +42,7 @@ def getNewLetter():
     letter = choice(list(ENCODER.keys()))
 
     return letter
+
 
 def getForm():
     '''
@@ -65,6 +63,7 @@ def getForm():
 
     return label, img
 
+
 def predictLetter(img):
     '''
     Predict the letter from the model
@@ -81,15 +80,16 @@ def predictLetter(img):
     results = model.predict(img)
 
     # get the top probability
-    pred_letter = np.argmax(results, axis = -1)
+    pred_letter = np.argmax(results, axis=-1)
 
     # get the letter that corresponds to the pred_letter
     pred_letter = ENCODER.inverse[pred_letter[0]]
-    
+
     # print results to terminal
-    #print(f'Predicted Letter: {pred_letter}')
+    # print(f'Predicted Letter: {pred_letter}')
 
     return pred_letter
+
 
 # Route: index
 @app.route('/')
@@ -98,8 +98,9 @@ def index():
 
     return render_template('index.html')
 
+
 # Route: Training - Get
-@app.route('/train', methods = ['GET'])
+@app.route('/train', methods=['GET'])
 def train_get():
     # get message from session, if not there ''
     if 'message' in session:
@@ -113,14 +114,15 @@ def train_get():
     count = {k: 0 for k in ENCODER.keys()}
     for label in labels:
         count[label] += 1
-    count = sorted(count.items(), key = lambda x: x[1])
+    count = sorted(count.items(), key=lambda x: x[1])
     letter = count[0][0]
 
     # render train html
-    return render_template('train.html', prompt_value = letter, message = message)
+    return render_template('train.html', prompt_value=letter, message=message)
+
 
 # Route: Training - Post
-@app.route('/train', methods = ['POST'])
+@app.route('/train', methods=['POST'])
 def train_post():
     label, img = getForm()
 
@@ -150,11 +152,12 @@ def train_post():
     # return to train get route
     return redirect(url_for('train_get'))
 
+
 # Route: Letters - Get
-@app.route('/letters', methods = ['GET'])
+@app.route('/letters', methods=['GET'])
 def letters_get():
     session.clear()
-    
+
     # get a random letter from ENCODER LETTERS dictionary
     new_letter = getNewLetter()
 
@@ -166,10 +169,11 @@ def letters_get():
         'guessed_count': 0
     }
 
-    return render_template('letters.html', parameters = parameters)
+    return render_template('letters.html', parameters=parameters)
+
 
 # Route: Letters - Post
-@app.route('/letters', methods = ['POST'])
+@app.route('/letters', methods=['POST'])
 def letters_post():
     # get form data
     letter, img = getForm()
@@ -209,9 +213,10 @@ def letters_post():
         'predicted_letter': predicted_letter,
         'prev_letter': prev_letter,
         'guessed_count': guessed_count
-    }            
-        
-    return render_template('letters.html', parameters = parameters)
+    }
+
+    return render_template('letters.html', parameters=parameters)
+
 
 # Route: Model - Get
 @app.route('/train-model', methods=['GET'])
@@ -220,16 +225,17 @@ def train_model_get():
 
     return render_template('index.html')
 
+
 # Route: Model - Post
-@app.route('/train-model', methods = ['POST'])
+@app.route('/train-model', methods=['POST'])
 def train_model_post():
     if request.form['model_submit']:
-        #train = trainpy.Training()
-        train = trainpy.train_model()
+        trainpy.train_model()
 
     print('Model successfully retrained')
     
     return render_template('index.html')
 
+
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug=True)
